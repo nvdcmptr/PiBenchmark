@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/silver_bg"
+    android:paddingBottom="0dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Activity_Main" >
+
+    <TextView
+        android:id="@+id/lblStatus"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:paddingLeft="10dp"
+        android:text="@string/lblStatus_ready" />
+
+    <ImageView
+        android:id="@+id/imgvPi"
+        android:layout_width="125dp"
+        android:layout_height="110dp"
+        android:layout_below="@+id/lblStatus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/descriptionImgvPi"
+        android:src="@drawable/pi" />
+
+    <TextView
+        android:id="@+id/lblAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/lblStatus"
+        android:layout_below="@+id/imgvPi"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:text="@string/lblAcc"
+        android:textSize="20sp" />
+
+    <SeekBar
+        android:id="@+id/sbAcc"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/imgvPi"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/lblAcc"
+        android:background="@drawable/volume_simple"
+        android:max="9" />
+
+    <TextView
+        android:id="@+id/lblTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblAcc"
+        android:layout_below="@+id/lblAcc"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:text="@string/lblTime"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblTime"
+        android:layout_below="@+id/lblAcc"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/lblTime"
+        android:gravity="bottom|left"
+        android:text="@string/lblnull" />
+
+    <TextView
+        android:id="@+id/lblScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblTime"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:text="@string/lblScore"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblScoreValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblScore"
+        android:layout_below="@+id/lblTimeValue"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/lblScore"
+        android:gravity="bottom|left"
+        android:text="@string/lblnull" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblScore"
+        android:layout_marginTop="15dp"
+        android:text="@string/btnStart" />
+    
+        <Button
+            android:id="@+id/btnAbort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btnStart"
+            android:layout_below="@+id/btnStart"
+            android:layout_marginTop="5dp"
+            android:text="@string/btnAbort" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/lblStatus"
+        android:layout_marginBottom="5dp" />
+
+</RelativeLayout>
