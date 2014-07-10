@@ -1,5 +1,6 @@
 PiBenchmark
 ===========
+The source code is very simple and easy to understand!
 
 About:
 
@@ -11,7 +12,6 @@ Copyright 2014 Navid Norouzi -- Iran
 
 GNU General Public License
 
-The source code is very simple and easy to understand!
 
 ****************************************************************************************************
 
