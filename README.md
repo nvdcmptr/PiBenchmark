@@ -4,12 +4,17 @@ PiBenchmark
 About:
 
 Benchmark CPU of android device by calculating Pi number
+
 Version: 1.4
+
 Copyright 2014 Navid Norouzi -- Iran
+
 GNU General Public License
+
 The source code is very simple and easy to understand!
 
 ****************************************************************************************************
+
 How we calculate Pi:
 
 tan 45° (or π/4 radians) =1, therefore
