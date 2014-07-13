@@ -33,21 +33,21 @@ public class Activity_Main extends Activity {
 
 	// <Global Variable>
 	int deciSec = 0, sec = 0, min = 0;
-	boolean flagBreak = false;
+	boolean flagBreak = false; // flagbreak value will be true when abort button clicked
 	TextView lblTime;
 	TextView lblStatus;
 	TextView lblScore;
 	ProgressBar progressBar;
-	double tr1Result = 0, tr2Result = 0, tr3Result = 0, tr4Result = 0;
-	long cycle;
-	int completedThrdCnt = 0;
+	double tr1Result = 0, tr2Result = 0, tr3Result = 0, tr4Result = 0; // result of each branch of calculation
+	long cycle; // cycle determine how much should we calculate Pi
+	int completedThrdCnt = 0; // count of complete thread (branch) of calculation
+	// define beginning and end of each branch (thread)
 	long tr1Beg = 1, tr2Beg = 3, tr3Beg = 5, tr4Beg = 7, tr1End = tr1Beg, tr2End = tr2Beg, tr3End = tr3Beg, tr4End = tr4Beg, tr1Index = 0, tr2Index = 0, tr3Index = 0, tr4Index = 0;
 	int versionNumber = 0;
 	String versionName = "";
 	Button btnStart;
 	SeekBar sbAcc;
 	Context context;
-
 	// </Global Variable>
 
 	@Override
@@ -72,7 +72,7 @@ public class Activity_Main extends Activity {
 		btnAbort.setTypeface(fontDroid);
 		sbAcc = (SeekBar) findViewById(R.id.sbAcc);
 		sbAcc.setProgress(5);
-		cycle = 500000000;// 10^8
+		cycle = 500000000;// 5*(10^8)
 		sbAcc.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
@@ -114,25 +114,25 @@ public class Activity_Main extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// <initialize>
+				// <Zero initialize>
 				flagBreak = false;
 				lblStatus.setText(getString(R.string.lblStatus_calc));
 				min = 0;
 				sec = 0;
 				deciSec = 0;
 				completedThrdCnt = 0;
-				tr1Index=0;
-				tr2Index=0;
-				tr3Index=0;
-				tr4Index=0;
+				tr1Index = 0;
+				tr2Index = 0;
+				tr3Index = 0;
+				tr4Index = 0;
 				tr1Result = 0;
 				tr2Result = 0;
 				tr3Result = 0;
 				tr4Result = 0;
-				// </initialize>
-				// <Thread Define>
-				final Thread tr1 = new Thread(new Runnable() {
+				// </Zero initialize>
 
+				// <Thread Define> we divide Calculation to 4 equal branch(thread) because we have at most quad core processor
+				final Thread tr1 = new Thread(new Runnable() {
 					@Override
 					public void run() {
 						for (tr1Index = tr1Beg; (tr1Index <= tr1End) && !flagBreak; tr1Index += 8)
@@ -140,7 +140,6 @@ public class Activity_Main extends Activity {
 						completedThrdCnt++;
 					}
 				});
-
 				final Thread tr2 = new Thread(new Runnable() {
 
 					@Override
@@ -160,7 +159,6 @@ public class Activity_Main extends Activity {
 						completedThrdCnt++;
 					}
 				});
-
 				final Thread tr4 = new Thread(new Runnable() {
 
 					@Override
@@ -200,10 +198,9 @@ public class Activity_Main extends Activity {
 
 			}
 		});
-
 	}// end onCreate
 
-	// Define ProcessBar handler
+	//<Define ProcessBar handler>
 	final Handler prcbarHandler = new Handler();
 	final Runnable prcbarRun = new Runnable() {
 
@@ -215,10 +212,10 @@ public class Activity_Main extends Activity {
 				prcbarHandler.postDelayed(prcbarRun, 10);
 		}
 	};
-	// Define time handler
+
+	//</Define time handler>
 	final Handler timeHandler = new Handler();
 	final Runnable timeRun = new Runnable() {
-
 		@Override
 		public void run() {
 			// set minutes second and decisecond
@@ -230,13 +227,11 @@ public class Activity_Main extends Activity {
 				min++;
 				sec = 0;
 			}
-
 			lblTime.setText(min + " : " + sec + " : " + deciSec);
 			deciSec++;
 			if (completedThrdCnt != 4)
 				timeHandler.postDelayed(timeRun, 100);
 			else { // calculating Finished!
-
 				CalcFinished();
 			}
 		}
@@ -263,9 +258,10 @@ public class Activity_Main extends Activity {
 		if (!flagBreak) {
 			lblScore.setText(scoreView.toString());
 			scoreView.close();
-		} else
+		} else {
 			// if we break calculation we should set score to null value
 			lblScore.setText(getResources().getString(R.string.lblnull));
+		}
 		// show Pi number
 		AlertDialog alert = new AlertDialog.Builder(context).create();
 		double result = tr1Result + tr2Result + tr3Result + tr4Result;
@@ -305,15 +301,8 @@ public class Activity_Main extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	/**
-	 * Problems: 1- man thread ha ro too on create tarif karde boodam va dar
-	 * onclick btnStart unaro start mikardam ama ye moshkel be vojood umad ke
-	 * barname faghat dafe aval dorost kar mikar ke be komak stackoverflow
-	 * fahmidam bayad dobare thread haro tarif konam va man baraye hale in
-	 * moshkel tarife thread haro be dakhele onclick dokme btnStart avordam va
-	 * darnahayat problem solved!!!
-	 */
-	
-	//  93.0411.7 : moshkele reset nashodane progressbar hal shod
-	//  93.0414.8 : bug disable nashodane seekbar (ke mitavanest dar mohasebe score eshkal ijad konad) hal shod.
+
+	// 93.0411.7 : PROBLEM of not reset progressBar in each session SOLVED
+	// 93.0414.8 : PROBLEM of not disabling SeekBar that can cheat Score SOLVED
+	// cod has 308 line
 }
